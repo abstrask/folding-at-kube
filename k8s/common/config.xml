@@ -1,0 +1,11 @@
+<config>
+  <!-- Network -->
+  <proxy v=':8080'/>
+
+  <!-- Remote Command Server -->
+  <password v='password'/>
+
+  <!-- Folding Slots -->
+  <!-- <slot id='0' type='CPU'/> -->
+  <!-- <slot id='1' type='GPU'/> -->
+</config>

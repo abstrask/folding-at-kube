@@ -1,0 +1,21 @@
+# Headless service (required by StatefulSet)
+apiVersion: v1
+kind: Service
+metadata:
+  name: fahclient-headless
+  namespace: folding
+  labels:
+    app: fahclient
+spec:
+  selector:
+    app: fahclient
+  clusterIP: None
+  ports:
+    - name: web
+      port: 7396
+      protocol: TCP
+      targetPort: 7396
+    - name: command
+      port: 36330
+      protocol: TCP
+      targetPort: 36330
