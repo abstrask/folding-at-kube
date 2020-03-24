@@ -11,6 +11,6 @@
   <passkey v='UserPassKey'/>
 
   <!-- Remote Command Server -->
-  <password v='scarves coherent selma inflate'/>
+  <password v='RemoteCommandPassword'/>
 
 </config>

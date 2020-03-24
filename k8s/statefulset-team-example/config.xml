@@ -1,0 +1,16 @@
+<config>
+
+  <!-- Network -->
+  <proxy v=':8080'/>
+
+  <!-- User Information -->
+  <!-- https://apps.foldingathome.org/team -->
+  <!-- https://apps.foldingathome.org/getpasskey -->
+  <team v='TeamID'/>
+  <user v='Username'/>
+  <passkey v='UserPassKey'/>
+
+  <!-- Remote Command Server -->
+  <password v='RemoteCommandPassword'/>
+
+</config>

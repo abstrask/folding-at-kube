@@ -30,6 +30,9 @@ spec:
           operator: "Equal"
           value: "true"
           effect: "NoSchedule"
+        - key: "nvidia.com/gpu"
+          operator: "Exists"
+          effect: "NoSchedule"
       nodeSelector:
         node.k8s.dfds.cloud/gpu: "true"
       affinity:
