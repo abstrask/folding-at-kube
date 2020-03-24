@@ -51,7 +51,9 @@ spec:
             secretName: fahclient
       containers:
         - name: fahclient
-          image: debian:buster-slim
+          # image: debian:buster-slim
+          image: nvidia/cuda:10.2-runtime # OpenCL device matching slot 1 not found, try setting 'opencl-index' manually
+          # image: nvidia/opencl:runtime
           env:
             - name: power
               value: full
@@ -75,6 +77,9 @@ spec:
               containerPort: 7396
             - name: command
               containerPort: 36330
+          resources:
+            limits:
+              nvidia.com/gpu: 1
           securityContext:
             allowPrivilegeEscalation: false
             capabilities: {}
@@ -88,7 +93,9 @@ spec:
           workingDir: /shared/usr/bin/
       initContainers:
         - name: install-fah
-          image: debian:buster-slim
+          # image: debian:buster-slim
+          image: nvidia/cuda:10.2-runtime
+          # image: nvidia/opencl:runtime
           args:
             - -c
             - apt update && apt install -y wget && wget https://download.foldingathome.org/releases/public/release/fahclient/debian-stable-64bit/v${major_version}/fahclient_${minor_version}_amd64.deb && dpkg -x fahclient_${minor_version}_amd64.deb /shared/ && touch /shared/usr/bin/log.txt && cp /etc/fahclient-config.xml /shared/usr/bin/config.xml && chown -R 65534:65534 /shared

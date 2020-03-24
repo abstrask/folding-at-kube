@@ -1,0 +1,16 @@
+<config>
+    <!-- Network -->
+    <proxy v=':8080'/>
+
+    <!-- User Information -->
+    <team v='248987'/>
+    <user v='DFDS_Kubernetes'/>
+    <!-- <passkey v='********************************'/> -->
+
+    <!-- Remote Command Server -->
+    <password v='scarves coherent selma inflate'/>
+
+    <!-- Folding Slots -->
+    <!-- <slot id='0' type='CPU'/>
+    <slot id='1' type='GPU'/> -->
+</config>
