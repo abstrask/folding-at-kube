@@ -54,10 +54,6 @@ spec:
               value: full
             - name: command-enable
               value: "true"
-            - name: team
-              value: "248987"
-            - name: user
-              value: "DFDS_Kubernetes" # https://foldingathome.org/support/faq/stats-teams-usernames/
           command:
             - /shared/usr/bin/FAHClient
           args:
@@ -65,8 +61,6 @@ spec:
             - --power=$(power)
             - --gpu=true
             - --fold-anon=false
-            - --team=$(team)
-            - --user=$(user)
             - --gui-enabled=false
             - --allow=0/0
             - --web-enable=false
