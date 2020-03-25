@@ -51,18 +51,17 @@ spec:
             secretName: fahclient
       containers:
         - name: fahclient
-          # image: debian:buster-slim
-          image: nvidia/cuda:10.2-runtime # OpenCL device matching slot 1 not found, try setting 'opencl-index' manually
-          # image: nvidia/opencl:runtime
+          image: abstrask/folding:nvidia-opencl-latest
           env:
             - name: power
               value: full
             - name: command-enable
               value: "true"
           command:
-            - /shared/usr/bin/FAHClient
+            - /usr/bin/FAHClient
           args:
             - -v
+            - --data-directory=/etc/fahclient
             - --power=$(power)
             - --gpu=true
             - --fold-anon=false
@@ -89,27 +88,16 @@ spec:
             runAsUser: 65534
           volumeMounts:
             - name: fahclient-vol
-              mountPath: /shared
-          workingDir: /shared/usr/bin/
+              mountPath: /etc/fahclient
+          workingDir: /etc/fahclient
       initContainers:
-        - name: install-fah
-          # image: debian:buster-slim
-          image: nvidia/cuda:10.2-runtime
-          # image: nvidia/opencl:runtime
-          args:
-            - -c
-            - apt update && apt install -y wget && wget https://download.foldingathome.org/releases/public/release/fahclient/debian-stable-64bit/v${major_version}/fahclient_${minor_version}_amd64.deb && dpkg -x fahclient_${minor_version}_amd64.deb /shared/ && touch /shared/usr/bin/log.txt && cp /etc/fahclient-config.xml /shared/usr/bin/config.xml && chown -R 65534:65534 /shared
+        - name: init-fah
+          image: debian:buster-slim
           command:
             - /bin/sh
-          env:
-            - name: major_version
-              value: "7.5"
-            - name: minor_version
-              value: "7.5.1"
-          resources:
-            limits:
-              cpu: "1"
-              memory: 256Mi
+          args:
+            - -c
+            - cp /etc/fahclient-config.xml /etc/fahclient/config.xml && chown -R 65534:65534 /etc/fahclient
           securityContext:
             allowPrivilegeEscalation: false
             privileged: false
@@ -118,7 +106,7 @@ spec:
             runAsUser: 0
           volumeMounts:
             - name: fahclient-vol
-              mountPath: /shared
+              mountPath: /etc/fahclient
             - name: fahclient-secret
-              mountPath: "/etc/fahclient-config.xml"
               subPath: "config.xml"
+              mountPath: "/etc/fahclient-config.xml"
